@@ -27,10 +27,10 @@ public class BoardController {
 
 		model.addAttribute("list", boardService.getList()); // views/board/list.jsp
 	}
-	
+
 	@GetMapping("/register")
 	public void register() {
-		
+
 	}
 
 	@PostMapping("/register")
@@ -43,12 +43,10 @@ public class BoardController {
 		return "redirect:/board/list"; // views/board/list.jsp
 	}
 
-	@GetMapping("/get")
-	public void get(@RequestParam("bno") Long bno, Model model) {
-		log.info("get......" + bno);
-
-		model.addAttribute("board", boardService.get(bno)); // views/board/get.jsp
-
+	@GetMapping({ "/get", "/modify" })
+	public void get(@RequestParam("bno") long bno, Model model) {
+		log.info("get.. + modify.." + bno);
+		model.addAttribute("board", boardService.get(bno));
 	}
 
 	@PostMapping("/modify")

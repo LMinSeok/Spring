@@ -12,7 +12,12 @@
 <div class="row">
 	<div class="col-lg-12">
 		<div class="panel panel-default">
-			<div class="panel-heading">DataTables Advanced Tables</div>
+			<div class="panel-heading">
+				Board List page
+				<button id="regBtn" type="button"
+					class="btn btn-xs btn-primary pull-right">Rigister New
+					Board</button>
+			</div>
 			<!-- /.panel-heading -->
 			<div class="panel-body">
 				<table width="100%"
@@ -29,9 +34,9 @@
 					<tbody>
 						<c:forEach var="board" items="${list}">
 							<tr class="odd gradeX">
-								<td>${board.bno }</td>
-								<td>${board.title }</td>
-								<td>${board.writer }</td>
+								<td><a href='/board/get?bno=${board.bno}' />
+									${board.title}</td>
+								<td>${board.writer}</td>
 								<td><fmt:formatDate value="${board.regdate}"
 										pattern="yyyy-MM-dd" /></td>
 								<td><fmt:formatDate value="${board.updateDate}"
@@ -40,6 +45,30 @@
 						</c:forEach>
 					</tbody>
 				</table>
+				<!-- /.table-responsive -->
+
+				<!-- 모달창 추가 -->
+				<div class="modal" id="myModal">
+					<div class="modal-dialog">
+						<div class="modal-content">
+
+							<!-- Modal Header -->
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title" id="myModalLabel">Modal Title</h4>
+							</div>
+							<!-- Modal body -->
+							<div class="modal-body">처리가 완료되었습니다.</div>
+							<!-- Modal footer -->
+							<div class="modal-footer">
+								<button type="button" class="btn btn-danger"
+									data-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /모달창 추가 -->
+
 			</div>
 			<!-- /.panel-body -->
 		</div>
@@ -49,42 +78,55 @@
 </div>
 <!-- /.row -->
 
-
-<%@ include file="../includes/footer.jsp"%>
-</div>
-<!-- /#page-wrapper -->
-
-</div>
-<!-- /#wrapper -->
-
-<!-- jQuery -->
-<script src="/resources/vendor/jquery/jquery.min.js"></script>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
-
-<!-- Metis Menu Plugin JavaScript -->
-<script src="/resources/vendor/metisMenu/metisMenu.min.js"></script>
-
-<!-- DataTables JavaScript -->
-<script src="/resources/vendor/datatables/js/jquery.dataTables.min.js"></script>
-<script
-	src="/resources/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-<script
-	src="/resources/vendor/datatables-responsive/dataTables.responsive.js"></script>
-
-<!-- Custom Theme JavaScript -->
-<script src="/resources/dist/js/sb-admin-2.js"></script>
-
-<!-- Page-Level Demo Scripts - Tables - Use for reference -->
 <script>
-	$(document).ready(function() {
-		$('#dataTables-example').DataTable({
-			responsive : true
-		});
-	});
+	$(document).ready(
+			function() {
+
+				var result = "<c:out value='${result}'/> ";
+				
+				checkModal(result);
+				
+				history.replaceState({},null,null)
+	  			
+/* 				if (result === "" || localStorage.getItem('modalShown')) {
+
+				console.log(parseInt(result))
+				checkModal(result) */
+
+				//모달창
+				function checkModal(result) {
+					if (result === "" || history.state) {
+						/* console.log("checkModal"); */
+						return;
+					}
+					if (parseInt(result) > 0) {
+						$(".modal-body").html(
+								"게시글 " + parseInt(result) + "번이 등록되었습니다.");
+					}
+					$("#myModal").modal("show");
+				}
+
+				//register 호출
+				$("#regBtn").on("click", function() {
+					self.location = "/board/register";
+				});
+
+				/* document.getElementById("regBtn").addEventListener("click",function(){
+					window.location.href = "/board/register";
+				}) */
+
+			});
 </script>
 
-</body>
 
-</html>
+
+
+
+
+
+
+
+
+
+
+<%@ include file="../includes/footer.jsp"%>
