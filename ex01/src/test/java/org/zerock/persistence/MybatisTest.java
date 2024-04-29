@@ -17,12 +17,13 @@ public class MybatisTest {
 
 	@Autowired
 	private SqlSessionFactory sessionFactory;
-
+		
+	
 	@Test
 	public void testConnection() {
-
+		
 		SqlSession session = sessionFactory.openSession();
 		log.info("session :  " + session);
 	}
-
+	
 }

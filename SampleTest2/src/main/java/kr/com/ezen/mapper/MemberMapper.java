@@ -6,18 +6,18 @@ import org.apache.ibatis.annotations.Select;
 
 import kr.com.ezen.dto.MemberVO;
 
-public interface MemberMapper { //interface 객체 생성 불가
-	@Select("select sysdate from dual")
-	public String getTime();
+public interface MemberMapper {
 	
+	@Select("select sysdate from dual")
+	public String getTime();	
 	public String getTime2();
 	
 	public int insertMember(MemberVO vo);
 	
 	public int updateMember(MemberVO vo);
-
+	
 	public int deleteMember(int id);
-
+	
 	public MemberVO selectOneMember(int id);
 	
 	public List<MemberVO> selectAllmember();

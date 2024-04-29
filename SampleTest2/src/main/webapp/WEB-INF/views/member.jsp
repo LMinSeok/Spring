@@ -8,6 +8,6 @@
 </head>
 <body>
 <h1>Member Controller</h1>
-<h3>${name} 안녕하세요</h3>
+<h3>${name}님 안녕하세요</h3>
 </body>
 </html>

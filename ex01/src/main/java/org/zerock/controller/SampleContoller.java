@@ -1,18 +1,25 @@
 package org.zerock.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import org.springframework.beans.propertyeditors.CustomCollectionEditor;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.SampleDTO;
@@ -94,24 +101,24 @@ public class SampleContoller {
 		return "ex03"; // WEB-INF/view/ex03.jsp
 	}
 
-//	@GetMapping("/ex04")
-//	public String ex04(SampleDTO dto, int page, Model model) {
-//		log.info("dto : " + dto);
-//		log.info("page : " + page);
-//
-//		model.addAttribute("list", dto);
-//		model.addAttribute("page", page);
-//
-//		return "/sample/ex04";
-//	}
-//
-//	@GetMapping("/ex04")
-//	public String ex04_(@RequestParam("age2") int age2, RedirectAttributes rttr) {
-//
-//		rttr.addFlashAttribute("age2", age2);
-//
-//		return "redirect:/sample/ex01";
-//	}
+	@GetMapping("/ex04")
+	public String ex04(SampleDTO dto, int page, Model model) {
+		log.info("dto : " + dto);
+		log.info("page : " + page);
+
+		model.addAttribute("list", dto);
+		model.addAttribute("page", page);
+
+		return "/sample/ex04";
+	}
+
+	@GetMapping("/ex044")
+	public String ex04_(@RequestParam("age2") int age2, RedirectAttributes rttr) {
+
+		rttr.addFlashAttribute("age2", age2);
+
+		return "redirect:/sample/ex01";
+	}
 
 	@GetMapping("/ex05") // /sample/ex05 => WEB-INF/view/sample/ex05.jsp
 	public void ex05() {
@@ -119,7 +126,7 @@ public class SampleContoller {
 	}
 
 	@GetMapping("/ex06")
-	@ResponseBody
+	@ResponseBody   //java객체를 >> Json으로 변환해서 전달
 	public SampleDTO ex06() {
 		SampleDTO sampleDTO = new SampleDTO();
 
@@ -128,51 +135,65 @@ public class SampleContoller {
 
 		return sampleDTO;
 	}
+	
+	@GetMapping("/ex066") //Json 값을 java객체로 변환해서 dto전달
+	public String ex066(@RequestBody SampleDTO dto) {
+		log.info("------------ex066");
+		log.info(dto.getName());
+		log.info(dto.getAge());
+		log.info(dto);
+		
+		return "ex066";
+	}
+	
+	
 
+	
 //	  @GetMapping("/ex07") public SampleDTO ex07() { SampleDTO sampleDTO = new
 //	  SampleDTO();
 //	  
 //	  sampleDTO.setName("ccc"); sampleDTO.setAge(90);
 //	  
 //	  return sampleDTO; }
-
+	 
 	@GetMapping("/ex07")
-	public ResponseEntity<String> ex07() {
+	public ResponseEntity<String> ex07(){
 		log.info("ex07.........");
-
-		// {"name" : "홍길동"}
-		String msg = "{\"name\":\"홍길동\"}";
-
+		
+		//{"name" : "홍길동"}
+		String msg = "{\"name\":\"홍길동\"}" ;
+		
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
-
+		
 		return new ResponseEntity<String>(msg, headers, HttpStatus.ACCEPTED);
 	}
-
-	@GetMapping("/ex08") // java 객체를 gson을 이용해서 json타입으로 변환한 다음 전송
-	public ResponseEntity<String> ex08() {
+	
+	@GetMapping("/ex08")  //java 객체를 gson을 이용해서 json타입으로 변환한 다음 전송
+	public ResponseEntity<String> ex08(){
 		log.info("ex08........");
-
+		
 		SampleDTO dto = new SampleDTO();
 		dto.setName("홍길동");
 		dto.setAge(49);
-
+		
 		Gson gson = new Gson();
 		String jsonStr = gson.toJson(dto);
-
+		
 		log.info(jsonStr);
-
+		
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
-
-		return new ResponseEntity<String>(jsonStr, headers, HttpStatus.ACCEPTED);
+		
+		return new ResponseEntity<String>(jsonStr, headers,HttpStatus.OK);
 	}
-
-	@GetMapping("/exUpload") // locadhost:8181/sample/exUpload ---> (void) /WEB-INF/views/sample/exUplaod.jsp
+	
+	
+	@GetMapping("/exUpload")  //locadhost:8181/sample/exUpload    ---> (void)  /WEB-INF/views/sample/exUplaod.jsp
 	public void exUpload() {
 		log.info("exUpload............");
 	}
-
+	
 	@PostMapping("/exUploadPost")
 	public void exUploadPost(ArrayList<MultipartFile> files) {
 		files.forEach(file -> {
@@ -181,5 +202,8 @@ public class SampleContoller {
 			log.info("size : " + file.getSize());
 		});
 	}
-
+	
+	
+	
+	
 }

@@ -15,6 +15,7 @@ import lombok.extern.log4j.Log4j;
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
 public class MybatisTest {
+
 	@Autowired
 	private SqlSessionFactory sessionFactory;
 	
@@ -25,19 +26,23 @@ public class MybatisTest {
 	public void testConnection() {
 		
 		SqlSession session = sessionFactory.openSession();
-		log.info("session : " +session);
+		log.info("session :  " + session);
 	}
+	
 	
 	@Test
 	public void testGetTime() {
-		log.info("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
+		log.info("--------------------------");
 		log.info(mapper.getTime());
-		
 	}
+
 	@Test
 	public void testGetTime2() {
-		log.info("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ2222ㅡ");
+		log.info("--------------------------2222222");
 		log.info(mapper.getTime2());
-		
 	}
+	
+	
+	
+	
 }

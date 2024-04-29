@@ -18,17 +18,41 @@ import lombok.extern.log4j.Log4j;
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 public class DataSourceTests {
 
-	@Autowired // 필드 주입
+	@Autowired //필드 주입
 	private DataSource dataSource;
-
+	
+	
+	
 	@Test
 	public void testConnection() {
 		try {
 			Connection con = dataSource.getConnection();
-			log.info("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
-			log.info("con >> " +con);
-		} catch (SQLException e) {
+			log.info("--------------------------");
+			log.info("con >> " + con);
+		} catch (SQLException e) {			
 			e.printStackTrace();
 		}
+		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

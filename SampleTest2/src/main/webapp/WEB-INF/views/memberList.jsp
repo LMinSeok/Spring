@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>list page</h1>
-<h6>${list}</h6>
+<h1>List Page</h1>
+<h3>${list}</h3>
 </body>
 </html>
