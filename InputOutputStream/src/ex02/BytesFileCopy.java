@@ -11,33 +11,32 @@ import java.util.Scanner;
 public class BytesFileCopy {
 
 	public static void main(String[] args) {
-
-		Scanner sc = new Scanner(System.in);
-
-		System.out.println("대상 파일 : ");
-		String src = sc.nextLine();
-
-		System.out.println("사본 이름 : ");
-		String dst = sc.nextLine();
-
+		
+		
 		try {
-			InputStream in = new FileInputStream("c:/upload/" + src);
-			OutputStream out = new FileOutputStream("c:/upload/" + dst);
-
+			InputStream in = new FileInputStream("c:/upload/kbc.dat");
+//			OutputStream out = new FileOutputStream("c:/upload/kbc.dat");
+			
+//			byte[] bs = "korea".getBytes();
+			
+//			out.write(bs);
+			
 			int data;
-
-			while (true) {
+			
+			while(true) {
 				data = in.read();
-				if (data == -1) {
+				if(data ==  -1) {
 					break;
 				}
-				out.write(data);
+				System.out.print((char)data);
 			}
+			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 	}
 
 }

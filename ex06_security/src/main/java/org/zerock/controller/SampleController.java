@@ -27,7 +27,6 @@ import lombok.extern.log4j.Log4j;
 //@Controller
 @RestController  // @Controller + @ResponseBody
 @Log4j
-@RequestMapping("/sample")
 public class SampleController {
 
 	@GetMapping(value = "/getText", produces = "text/plain; charset=utf-8")
