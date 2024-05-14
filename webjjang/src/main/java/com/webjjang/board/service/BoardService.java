@@ -9,4 +9,6 @@ public interface BoardService {
 	// list
 	public List<BoardVO> list() throws Exception;
 
+	// write
+	public Integer write(BoardVO vo) throws Exception;
 }

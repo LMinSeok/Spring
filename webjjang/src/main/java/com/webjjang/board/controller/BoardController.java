@@ -3,10 +3,13 @@ package com.webjjang.board.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.webjjang.board.service.BoardService;
+import com.webjjang.board.vo.BoardVO;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -26,12 +29,35 @@ public class BoardController {
 	@Autowired
 	// 동일한 타입의 객체가 있는 경우 설정
 	@Qualifier("boardServiceImpl")
-	private BoardService Service;
+	private BoardService service;
 
 	@GetMapping("/list.do")
-	public String list() {
-		System.out.println(("BoardController.list()"));
+	// jsp에 데이터를 전달하려면 Model을 파라메터로 받는다. -> request에 데이터가 담기게 된다.
+	public String list(Model model) throws Exception {
+		System.out.println("BoardController.list()");
+		model.addAttribute("list", service.list());
+		System.out.println("BoardController.list().model - " + model);
+		// jsp 정보 - servlet-context.xml 설정
+		// /WEB-INF/views/ + board/list + .jsp
 		return "board/list";
+	}
+
+	// 글 등록 폼
+	@GetMapping("/write.do")
+	public String writeForm() throws Exception {
+		System.out.println("BoardController.writeForm()");
+		// jsp 정보 - servlet-context.xml 설정
+		// /WEB-INF/views/ + board/write + .jsp
+		return "board/write";
+	}
+
+	// 글 등록 처리
+	@PostMapping("/write.do")
+	public String write(BoardVO vo) throws Exception {
+		System.out.println("BoardController.write().vo" + vo);
+		service.write(vo);
+		// 이동 URL 정보 : 앞에 "redirect:"을 붙여야 합니다.
+		return "redirect:list.do";
 	}
 
 }
