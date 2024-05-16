@@ -39,4 +39,24 @@ public class BoardServiceImpl implements BoardService {
 		return mapper.write(vo);
 	}
 
+	@Override
+	public BoardVO view(Long no, int inc) throws Exception {
+		// TODO Auto-generated method stub
+		if (inc == 1)
+			mapper.increase(no);
+		return mapper.view(no);
+	}
+
+	@Override
+	public Integer update(BoardVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return mapper.update(vo);
+	}
+
+	@Override
+	public Integer delete(BoardVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return mapper.delete(vo);
+	}
+
 }
