@@ -3,11 +3,12 @@ package com.webjjang.board.mapper;
 import java.util.List;
 
 import com.webjjang.board.vo.BoardVO;
+import com.webjjang.util.page.PageObject;
 
 public interface BoardMapper {
 
 	// list
-	public List<BoardVO> list();
+	public List<BoardVO> list(PageObject pageObject);
 
 	// view(select)
 	public BoardVO view(Long no);

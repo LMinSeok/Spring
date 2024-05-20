@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.webjjang.board.mapper.BoardMapper;
 import com.webjjang.board.vo.BoardVO;
+import com.webjjang.util.page.PageObject;
 
 import lombok.Data;
 
@@ -27,10 +28,11 @@ public class BoardServiceImpl implements BoardService {
 	private BoardMapper mapper;
 
 	@Override
-	public List<BoardVO> list() throws Exception {
+	public List<BoardVO> list(PageObject pageObject) throws Exception {
 		// TODO Auto-generated method stub
 		System.out.println("BoardService.list()");
-		return mapper.list();
+		// 전체 데이터 개수 가져오기 + 화면에 출력할 페이지 정보를 세팅해야 한다.
+		return mapper.list(pageObject);
 	}
 
 	@Override

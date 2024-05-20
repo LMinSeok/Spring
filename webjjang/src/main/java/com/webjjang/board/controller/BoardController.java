@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.webjjang.board.service.BoardService;
 import com.webjjang.board.vo.BoardVO;
+import com.webjjang.util.page.PageObject;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -33,9 +34,9 @@ public class BoardController {
 
 	@GetMapping("/list.do")
 	// jsp에 데이터를 전달하려면 Model을 파라메터로 받는다. -> request에 데이터가 담기게 된다.
-	public String list(Model model) throws Exception {
+	public String list(Model model, PageObject pageObject) throws Exception {
 		System.out.println("BoardController.list()");
-		model.addAttribute("list", service.list());
+		model.addAttribute("list", service.list(pageObject));
 		System.out.println("BoardController.list().model - " + model);
 		// jsp 정보 - servlet-context.xml 설정
 		// /WEB-INF/views/ + board/list + .jsp
